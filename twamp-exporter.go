@@ -82,10 +82,10 @@ func probeTWAMP(ctx context.Context, target string, registry *prometheus.Registr
 	defer session.Stop()
 	defer connection.Close()
 
-	durationGaugeVec.WithLabelValues("min").Add(float64(o.Stat.Min))
-	durationGaugeVec.WithLabelValues("max").Add(float64(o.Stat.Max))
-	durationGaugeVec.WithLabelValues("avg").Add(float64(o.Stat.Avg))
-	durationGaugeVec.WithLabelValues("stddev").Add(float64(o.Stat.StdDev))
+	durationGaugeVec.WithLabelValues("min").Add(float64(o.Stat.Min.Seconds()))
+	durationGaugeVec.WithLabelValues("max").Add(float64(o.Stat.Max.Seconds()))
+	durationGaugeVec.WithLabelValues("avg").Add(float64(o.Stat.Avg.Seconds()))
+	durationGaugeVec.WithLabelValues("stddev").Add(float64(o.Stat.StdDev.Seconds()))
 	lostProbesGauge.Set(o.Stat.Loss)
 	return true
 }
